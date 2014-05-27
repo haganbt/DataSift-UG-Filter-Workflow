@@ -41,7 +41,6 @@
     "grunt": "~0.4.0",
     "grunt-bowercopy": "~1.0.0",
     "mocha": "~1.19.0",
-    "supertest": "~0.12.1",
     "should": "~3.3.2",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-mocha-test": "~0.10.2",
