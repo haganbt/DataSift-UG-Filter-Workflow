@@ -4,12 +4,26 @@ var   express = require('express')
     , ds = require('../lib/datasift')
     ;
 
-/* POST compile. */
-router.get('/compile', function(req, res) {
+/*
+ * POST compile - wrapper to DataSift compile
+ *
+ * @params todo
+ */
+router.post('/compile', function(req, res) {
 
-    ds.compile(csdl, function callback(err, res, body) {
-        // pass through DS response
-        res.writeHead(res.statusCode, { 'Content-Type': 'application/json' });
+    //todo - extract api key, username, csdl from inbound request
+    var csdl = 'interaction.content ANY "orange"';
+
+
+    ds.compile(csdl, function callback(err, response, body) {
+
+        if(err){
+            res.status(err.status || 500);
+            res.render('500', { error: err });
+        }
+
+        // Pass through the statusCode and Content-Type from the DS response object.
+        res.writeHead(response.statusCode, { 'Content-Type': response.headers['content-type'] });
         res.write(body);
         res.end();
     });
