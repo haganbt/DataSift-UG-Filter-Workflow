@@ -1,0 +1,35 @@
+{
+  "name": "jcsdl",
+  "version": "2.4.0",
+  "main": [
+    "./minified/jcsdl.definition.js",
+    "./minified/jcsdl.min.js",
+    "./minified/jcsdl.min.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "demo",
+    "src",
+    "bundy.js"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mediasift",
+    "datasift",
+    "csdl",
+    "visual query builder",
+    "jcsdl"
+  ],
+  "homepage": "https://github.com/datasift/editor",
+  "_release": "2.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.4.0",
+    "commit": "3497adf3a4738455683a03329d7cf63cb103dda3"
+  },
+  "_source": "git://github.com/datasift/editor.git",
+  "_target": "2.4.0",
+  "_originalSource": "jcsdl"
+}
