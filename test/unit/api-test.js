@@ -1,26 +1,26 @@
 'use strict';
 process.env.NODE_ENV = 'test';
-var request = require('supertest')
-    //, should = require('should')
-    //, assert = require('assert')
-    , server
-    ;
 
-describe('API CALL UNIT TESTING', function(){
+
+var request = require('superagent');
+var expect = require('expect');
+var express = require('express'); // 'express' is used in bodyParser if needed
+var server;
+
+
+describe('#REST API', function() {
+
     var app = require('../../app');
     before(function(){
-         server = app.listen(3000);
+        server = app.listen(3000);
     });
 
-    describe('GET', function(){
-
-        it('respond with json', function(done){
-            request(app)
-                .get('/api/compile')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', 'application/json')
-                .expect(200, done)
-                ;
+    it('- POST is testing', function(done) {
+        request.post('/api/compile').send().end(function(e, res) {
+            //console.log(res.text)
+            //expect(e).to.eql(null);
+            expect(200, done);
+            done();
         });
     });
 
