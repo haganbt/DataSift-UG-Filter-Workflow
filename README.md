@@ -23,6 +23,4 @@ Run tasks:
 
 ```grunt```
 
-Start Server
-
-```npm start```
+Start Server:
