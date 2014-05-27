@@ -17,7 +17,9 @@ describe('#DataSift Lib', function() {
     it('- testing the compile method', function(done) {
 
         ds.compile('interaction.content ANY "apple"', function (err, response, body) {
-            if (err) throw err;
+            if (err) {
+                throw err;
+            }
 
             var jbody = JSON.parse(body);
             expect(jbody.hash).to.equal("74d786b7bca4ab3bfa2e8fa7e7bec275");
