@@ -46,6 +46,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-test');
 
     // Default task(s).
-    grunt.registerTask('default', ['bowercopy', 'mochaTest']);
+    grunt.registerTask('default', ['bowercopy', 'jshint', 'mochaTest']);
 
 };
