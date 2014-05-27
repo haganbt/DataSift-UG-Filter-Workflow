@@ -1,4 +1,6 @@
 {
-    'ds_username':'',
-    'ds_api_key':''
+    "datasift": {
+        "username": "",
+        "api_key": ""
+    }
 }
