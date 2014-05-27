@@ -19,13 +19,10 @@ Bower libs:
 
 ```bower install```
 
-
 Run tasks:
-
 
 ```grunt```
 
-
-Start:
+Start Server
 
 ```npm start```
