@@ -44,6 +44,8 @@
     "supertest": "~0.12.1",
     "should": "~3.3.2",
     "grunt-contrib-jshint": "~0.10.0",
-    "grunt-mocha-test": "~0.10.2"
+    "grunt-mocha-test": "~0.10.2",
+    "superagent": "~0.18.0",
+    "expect": "~0.1.1"
   }
 }
