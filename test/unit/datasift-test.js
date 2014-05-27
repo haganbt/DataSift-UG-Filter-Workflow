@@ -20,7 +20,6 @@ describe('#DataSift Lib', function() {
             if (err) {
                 throw err;
             }
-
             var jbody = JSON.parse(body);
             expect(jbody.hash).to.equal("74d786b7bca4ab3bfa2e8fa7e7bec275");
             response.should.have.status(200);
