@@ -5,6 +5,10 @@ var server;
 var ds = require('../../lib/datasift');
 var expect = require("chai").expect;
 var should = require('should');
+var config = require('../../test/config');
+
+var un = config.datasift.ds_username;
+var key = config.datasift.ds_api_key;
 
 
 describe('#DataSift Lib', function() {
@@ -16,7 +20,7 @@ describe('#DataSift Lib', function() {
 
     it('- testing the compile method', function(done) {
 
-        ds.compile('interaction.content ANY "apple"', function (err, response, body) {
+        ds.compile('interaction.content ANY "apple"', un+':'+key, function (err, response, body) {
             if (err) {
                 throw err;
             }

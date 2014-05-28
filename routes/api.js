@@ -1,5 +1,5 @@
 'use strict';
-var   express = require('express')
+var   express = require('express') // 'express' is used in bodyParser if needed
     , router = express.Router()
     , ds = require('../lib/datasift')
     ;
@@ -11,11 +11,11 @@ var   express = require('express')
  */
 router.post('/compile', function(req, res) {
 
-    //todo - extract api key, username, csdl from inbound request
-    var csdl = 'interaction.content ANY "orange"';
+    var auth = req.header('Authorization') || '';
+    //var csdl = JSON.parse(req.body) || '';
 
 
-    ds.compile(csdl, function callback(err, response, body) {
+    ds.compile('interaction.content any "orange"', auth, function callback(err, response, body) {
 
         if(err){
             res.status(err.status || 500);
