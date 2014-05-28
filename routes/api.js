@@ -12,8 +12,8 @@ var   express = require('express') // 'express' is used in bodyParser if needed
 router.post('/compile', function(req, res) {
 
     var auth = req.header('Authorization') || '';
+    //todo - parse CSDL
     //var csdl = JSON.parse(req.body) || '';
-
 
     ds.compile('interaction.content any "orange"', auth, function callback(err, response, body) {
 
@@ -30,15 +30,6 @@ router.post('/compile', function(req, res) {
 
 });
 
-
-/*
- router.get('/compile', function(req, res) {
- res.writeHead(200, { 'Content-Type': 'application/json' });
- res.write(JSON.stringify({insecticons : ["Shrapnel","Bombshell", "Kickback"]}));
- res.end();
- });
-
- */
 
 
 module.exports = router;
