@@ -1,12 +1,45 @@
+// Init
 $(function() {
+
+    // cookies
+    if($.cookie('un') && $.cookie('key')){
+        $('#un').val($.cookie('un')) === $.cookie('un');
+        $('#key').val($.cookie('key')) === $.cookie('key');
+    }
+
+
+    //init JCSDL
     $('#jcsdl-edit').jcsdlGui({
         save : function(code) {
-            // display the output
+
+            // validate the DS creds
+            validateCreds();
+
             $('#debug').val(code);
         },
         hideTargets : ['twitter.status', 'twitter.place', 'twitter.retweet', 'twitter.mention_ids', 'twitter.domains', 'twitter.in_reply_to_screen_name', 'twitter.links', 'twitter.user', 'twitter.retweeted',   'interaction', '2ch', 'lexisnexis', 'intensedebate', 'sinaweibo', 'tencentweibo', 'tumblr', 'facebook_page', 'googleplus','instagram', 'wordpress', 'wikipedia', 'yammer',  'imdb','facebook', '2channel', 'myspace', 'digg', 'amazon', 'blog', 'board', 'bitly', 'dailymotion', 'flickr', 'newscred', 'reddit', 'topix', 'video', 'youtube', 'imdb.author', 'imdb.type', 'imdb.contenttype', 'imdb.thread']
     });
 });
+
+
+/*
+ * validateCreds
+ */
+function validateCreds(){
+
+    var ds_user = $.trim($('#un').val());
+    var ds_key  = $.trim($('#key').val());
+
+    if(ds_user ==='' || ds_key === ''){
+        alert('Please enter a DataSift username and API key.');
+    } else {
+        // set cookie
+        $.cookie('un', ds_user, { expires: 60 });
+        $.cookie('key', ds_key, { expires: 60 });
+        console.log('DEBUG: saved cookies: ' + ds_user + '' + ds_key);
+    }
+};
+
 
 /*
 function updateContact (contact) {
@@ -76,7 +109,8 @@ function getData(){
     // ---- AJAX Call ---- //
     //XMLHttpRequest xhr = new XMLHttpRequest();
     xhr = new XMLHttpRequest();
-    xhr.open("GET","http://localhost:3000/api/test",true);
+    //void open(DOMString method, DOMString url, optional boolean async, optional DOMString? user, optional DOMString? password);
+    xhr.open("POST","http://localhost:3000/api/compile",true);
 
     // register the event handler
     xhr.addEventListener('load',function(){
@@ -90,7 +124,7 @@ function getData(){
     },false)
 
     // perform the work
-    xhr.send();
+    xhr.send('hello from the browser :)');
     // Note: could and should have used jQuery.ajax.
     // Note: jQuery.ajax return Promise, but it is always a good idea to wrap it
     //       with application semantic in another Deferred/Promise
