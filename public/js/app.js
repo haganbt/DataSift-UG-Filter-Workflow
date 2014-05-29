@@ -1,3 +1,6 @@
+var ds_user = '';
+var ds_key = '';
+
 // Init
 $(function() {
 
@@ -7,15 +10,17 @@ $(function() {
         $('#key').val($.cookie('key')) === $.cookie('key');
     }
 
-
     //init JCSDL
     $('#jcsdl-edit').jcsdlGui({
         save : function(code) {
 
-            // validate the DS creds
-            validateCreds();
+            log('DEBUG: CSDL generated: ' + code);
 
-            $('#debug').val(code);
+            // validate the DS creds
+            if(validateCreds() === true){
+                // compile csdl
+                doCompile(code);
+            }
         },
         hideTargets : ['twitter.status', 'twitter.place', 'twitter.retweet', 'twitter.mention_ids', 'twitter.domains', 'twitter.in_reply_to_screen_name', 'twitter.links', 'twitter.user', 'twitter.retweeted',   'interaction', '2ch', 'lexisnexis', 'intensedebate', 'sinaweibo', 'tencentweibo', 'tumblr', 'facebook_page', 'googleplus','instagram', 'wordpress', 'wikipedia', 'yammer',  'imdb','facebook', '2channel', 'myspace', 'digg', 'amazon', 'blog', 'board', 'bitly', 'dailymotion', 'flickr', 'newscred', 'reddit', 'topix', 'video', 'youtube', 'imdb.author', 'imdb.type', 'imdb.contenttype', 'imdb.thread']
     });
@@ -24,44 +29,57 @@ $(function() {
 
 /*
  * validateCreds
+ *
+ * @return boolean
+ *
  */
 function validateCreds(){
 
-    var ds_user = $.trim($('#un').val());
-    var ds_key  = $.trim($('#key').val());
+    ds_user = $.trim($('#un').val());
+    ds_key  = $.trim($('#key').val());
 
     if(ds_user ==='' || ds_key === ''){
         alert('Please enter a DataSift username and API key.');
-    } else {
-        // set cookie
-        $.cookie('un', ds_user, { expires: 60 });
-        $.cookie('key', ds_key, { expires: 60 });
-        console.log('DEBUG: saved cookies: ' + ds_user + '' + ds_key);
+        return false;
     }
+
+    // set cookie
+    $.cookie('un', ds_user, { expires: 60 });
+    $.cookie('key', ds_key, { expires: 60 });
+    console.log('DEBUG: saved cookies: ' + ds_user + '' + ds_key);
+    return true;
 };
 
 
-/*
-function updateContact (contact) {
+
+function doCompile (csdl) {
+
+    log('DEBUG: Compiling CSDL...');
 
     jQuery.ajax({
-        type: "PUT",
-        url: "http://localhost:49193/Contacts.svc/Update",
+        type: "POST",
+        url: "http://localhost:3000/api/compile",
         contentType: "application/json; charset=utf-8",
-        data: contact.toJsonString(),
+        data: 'csdl='+encodeURIComponent(csdl),
         dataType: "json",
-        success: function (data, status, jqXHR) {
-            // do something
+        headers: {
+            "Authorization": ds_user + ':' + ds_key
         },
-
+        success: function (data, status, jqXHR) {
+            log('DEBUG: compile success - ' + JSON.stringify(jqXHR.responseJSON));
+        },
         error: function (jqXHR, status) {
-            // error handler
-
+            log('ERROR: compile failed: ' + JSON.stringify(jqXHR.responseJSON));
         }
     });
 }
 
+function log(update){
+    $('#debug').val($('#debug').val() + "\n\n" + update);
+}
 
+
+/*
 function getContacts () {
 
     jQuery.ajax({
@@ -79,7 +97,7 @@ function getContacts () {
     });
 }
 
- */
+
 // get the promise object for this API
 var dataPromise = getData();
 
@@ -134,3 +152,4 @@ function getData(){
     return deferred.promise();
 }
 
+ */
