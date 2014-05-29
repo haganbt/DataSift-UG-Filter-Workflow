@@ -2,7 +2,7 @@ $(function() {
     $('#jcsdl-edit').jcsdlGui({
         save : function(code) {
             // display the output
-            $('#jcsdl-edit-output').val(code);
+            $('#debug').val(code);
         },
         hideTargets : ['interaction', 'lexisnexis', 'intensedebate', 'sinaweibo', 'tencentweibo', 'tumblr', 'facebook_page', 'googleplus','instagram', 'wordpress', 'wikipedia', 'yammer',  'imdb','facebook', '2channel', 'myspace', 'digg', 'amazon', 'blog', 'board', 'bitly', 'dailymotion', 'flickr', 'newscred', 'reddit', 'topix', 'video', 'youtube', 'augmentation', 'imdb.author', 'imdb.type', 'imdb.contenttype', 'imdb.thread']
     });
@@ -54,6 +54,7 @@ var dataPromise = getData();
 dataPromise.done(function(data){
     console.log("We got data: " + data);
     console.log("We got data: " + typeof(data));
+    $('#debug').val(data);
 });
 
 // register the failure function
