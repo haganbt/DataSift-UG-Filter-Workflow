@@ -4,7 +4,7 @@ $(function() {
             // display the output
             $('#debug').val(code);
         },
-        hideTargets : ['interaction', 'lexisnexis', 'intensedebate', 'sinaweibo', 'tencentweibo', 'tumblr', 'facebook_page', 'googleplus','instagram', 'wordpress', 'wikipedia', 'yammer',  'imdb','facebook', '2channel', 'myspace', 'digg', 'amazon', 'blog', 'board', 'bitly', 'dailymotion', 'flickr', 'newscred', 'reddit', 'topix', 'video', 'youtube', 'augmentation', 'imdb.author', 'imdb.type', 'imdb.contenttype', 'imdb.thread']
+        hideTargets : ['interaction', '2ch', 'lexisnexis', 'intensedebate', 'sinaweibo', 'tencentweibo', 'tumblr', 'facebook_page', 'googleplus','instagram', 'wordpress', 'wikipedia', 'yammer',  'imdb','facebook', '2channel', 'myspace', 'digg', 'amazon', 'blog', 'board', 'bitly', 'dailymotion', 'flickr', 'newscred', 'reddit', 'topix', 'video', 'youtube', 'augmentation', 'imdb.author', 'imdb.type', 'imdb.contenttype', 'imdb.thread']
     });
 });
 
