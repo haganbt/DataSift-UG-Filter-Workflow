@@ -12,11 +12,9 @@ var   express = require('express') // 'express' is used in bodyParser if needed
 router.post('/compile', function(req, res) {
 
     var auth = req.header('Authorization') || '';
-    //todo - parse CSDL
-    //var csdl = JSON.parse(req.body) || '';
+    var csdl = req.rawBody || '';
 
-    ds.compile('interaction.content any "orange"', auth, function callback(err, response, body) {
-
+    ds.compile(csdl, auth, function callback(err, response, body) {
         if(err){
             res.status(err.status || 500);
             res.render('500', { error: err });
@@ -27,6 +25,8 @@ router.post('/compile', function(req, res) {
         res.write(body);
         res.end();
     });
+
+
 
 });
 
