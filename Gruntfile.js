@@ -11,6 +11,7 @@ module.exports = function(grunt) {
                 destPrefix: 'public/'
             },
             files: {
+            'js/jquery.cookie.js': 'jquery.cookie/jquery.cookie.js',
             'js/jquery.min.js': 'jquery/dist/jquery.min.js',
             'js/jquery.min.map': 'jquery/dist/jquery.min.map',
             'js/bootstrap.min.js': 'bootstrap/dist/js/bootstrap.min.js',
