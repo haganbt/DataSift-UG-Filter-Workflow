@@ -16,9 +16,9 @@ block content
                 ul.nav.navbar-nav
                 form.navbar-form.navbar-right(role='form')
                     .form-group
-                        input.form-control(type='text', id='un', placeholder='<DS_USERNAME>')
+                        input.form-control.creds(type='text', id='un', placeholder='<DS_USERNAME>')
                     .form-group
-                        input.form-control(type='text', id='key', placeholder='<DS_API_KEY>')
+                        input.form-control.creds(type='password', id='key', placeholder='<DS_API_KEY>')
             //
               /.nav-collapse
     //
@@ -34,10 +34,10 @@ block content
                 p
                     #jcsdl-edit
         .row
-            .col-md-9
+            .col-md-8.col-md-offset-2
                 h3 Debug
                 p
-                    textarea#debug(disabled='true', style='width: 90%; display: block; height: 300px;')
+                    textarea#debug(disabled='true', style='width: 100%; display: block; height: 300px;')
     #footer
         .container
             p.text-muted Place sticky footer content here.

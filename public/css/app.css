@@ -1,6 +1,11 @@
 #debug {
 
-    color: #3c763d;
+    color: Gray;
     font-size: 10px;
     font-family: courier, monospace;
+    border: 1px solid #ddd;
+}
+
+.form-control.creds {
+    margin-right: 10px;
 }
