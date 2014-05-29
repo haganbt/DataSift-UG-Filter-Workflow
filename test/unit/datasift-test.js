@@ -20,7 +20,7 @@ describe('#DataSift Lib', function() {
 
     it('- testing the compile method', function(done) {
 
-        ds.compile('interaction.content ANY "apple"', un+':'+key, function (err, response, body) {
+        ds.compile('csdl='+encodeURIComponent('interaction.content any "apple"'), un+':'+key, function (err, response, body) {
             if (err) {
                 throw err;
             }

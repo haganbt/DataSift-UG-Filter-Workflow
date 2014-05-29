@@ -21,17 +21,17 @@ describe('#REST API', function() {
     });
 
     it('- /API/COMPILE resource', function(done) {
-
-        request.post('localhost:3000/api/compile')
-            .send('interaction.content ANY "orange"')
+        request.post('localhost:3000/api/compile' )
+            .type('form')
+            .send('csdl='+encodeURIComponent('interaction.content any "orange"'))
             .set('Authorization', un+':'+key)
             .set('Content-Type', 'application/x-www-form-urlencoded')
             .end(function(err, res){
-                    expect(res).to.exist;
-                    should.not.exist(err);
-                    res.should.have.status(200);
-                    res.text.should.include('dpu');
-                    done();
+                expect(res).to.exist;
+                should.not.exist(err);
+                res.should.have.status(200);
+                res.text.should.include('dpu');
+                done();
             });
     });
 
