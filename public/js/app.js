@@ -46,22 +46,24 @@ function getContacts () {
     });
 }
 
+ */
 // get the promise object for this API
 var dataPromise = getData();
 
 // register a function to get called when the data is resolved
 dataPromise.done(function(data){
-    alert("We got data: " + data);
+    console.log("We got data: " + data);
+    console.log("We got data: " + typeof(data));
 });
 
 // register the failure function
 dataPromise.fail(function(ex){
-    alert("oops, some problem occured: " + ex);
+    console.log("oops, some problem occured: " + ex);
 });
 
 // Note: we can have as many dataPromise.done(...) as we want.
 dataPromise.done(function(data){
-    alert("We asked it twice, we get it twice: " + data);
+    //console.log("We asked it twice, we get it twice: " + data);
 });
 
 
@@ -71,8 +73,9 @@ function getData(){
     var deferred = $.Deferred();
 
     // ---- AJAX Call ---- //
-    XMLHttpRequest xhr = new XMLHttpRequest();
-    xhr.open("GET","data",true);
+    //XMLHttpRequest xhr = new XMLHttpRequest();
+    xhr = new XMLHttpRequest();
+    xhr.open("GET","http://localhost:3000/api/test",true);
 
     // register the event handler
     xhr.addEventListener('load',function(){
@@ -96,4 +99,3 @@ function getData(){
     return deferred.promise();
 }
 
-    */
