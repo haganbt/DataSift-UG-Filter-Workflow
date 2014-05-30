@@ -1,8 +1,9 @@
 var ds_user = '';
 var ds_key = '';
 
-// Init
+
 $(function() {
+
     // cookies
     if($.cookie('un') && $.cookie('key')){
         $('#un').val($.cookie('un')) === $.cookie('un');
@@ -15,7 +16,6 @@ $(function() {
             log('DEBUG: CSDL generated: ' + code);
             // validate the DS creds
             if(validateCreds() === true){
-                // compile csdl
                 doCompile(code);
             }
         },
@@ -25,7 +25,8 @@ $(function() {
 
 
 /*
- * validateCreds
+ * validateCreds - validate the user has entered
+ *                 DS creds, and set cookies.
  *
  * @return boolean
  *

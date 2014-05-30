@@ -4,6 +4,7 @@ process.env.NODE_ENV = 'test';
 var request = require('superagent');
 var expect = require("chai").expect;
 var should = require('should');
+var util = require('../../lib/util');
 var server;
 var config = require('../../test/config');
 
@@ -34,6 +35,31 @@ describe('#REST API', function() {
                 done();
             });
     });
+
+    it('- /API/CREATE resource', function(done) {
+
+        var params  = {};
+        params.start = Math.floor((Date.now() / 1000) - (60 * 60 * 3)); // start is 3 hours ago
+        params.end = Math.floor((Date.now() / 1000) - (60 * 60 * 2)); // end is 2 hours ago
+        params.hash = '74d786b7bca4ab3bfa2e8fa7e7bec275';
+        params.sources = 'twitter';
+        params.parameters = 'language.tag,freqDist,10';
+
+        request.post('localhost:3000/api/create' )
+            .type('form')
+            .send(util.serialize(params))
+            .set('Authorization', un+':'+key)
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .end(function(err, res){
+                expect(res).to.exist;
+                should.not.exist(err);
+                res.should.have.status(202);
+                res.text.should.include('id');
+                res.text.should.include('created_at');
+                done();
+            });
+         });
+
 
     after(function() {
         server.close();
