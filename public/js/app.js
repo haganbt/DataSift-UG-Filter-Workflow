@@ -73,7 +73,6 @@ function doCompile (csdl) {
             if(jqXHR.responseJSON.hash && jqXHR.responseJSON.hash !== undefined){
                 doCreate(jqXHR.responseJSON.hash);
             }
-
         },
         error: function (jqXHR, status) {
             log('ERROR: compile failed: ' + JSON.stringify(jqXHR.responseJSON));
