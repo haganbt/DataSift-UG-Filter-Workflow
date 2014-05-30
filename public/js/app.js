@@ -69,7 +69,11 @@ function doCompile (csdl) {
             "Authorization": ds_user + ':' + ds_key
         },
         success: function (data, status, jqXHR) {
-            log('DEBUG: compile success - ' + JSON.stringify(jqXHR.responseJSON));
+            log('DEBUG: Compile success - ' + JSON.stringify(jqXHR.responseJSON));
+            if(jqXHR.responseJSON.hash && jqXHR.responseJSON.hash !== undefined){
+                doCreate(jqXHR.responseJSON.hash);
+            }
+
         },
         error: function (jqXHR, status) {
             log('ERROR: compile failed: ' + JSON.stringify(jqXHR.responseJSON));
@@ -77,6 +81,38 @@ function doCompile (csdl) {
     });
 }
 
+
+/*
+ * doCreate
+ *
+ * @return void
+ *
+ */
+function doCreate (hash) {
+
+    log('DEBUG: Staring preview...');
+
+    /*
+    jQuery.ajax({
+        type: "POST",
+        url: "http://localhost:3000/api/compile",
+        contentType: "application/json; charset=utf-8",
+        data: 'csdl='+encodeURIComponent(csdl),
+        dataType: "json",
+        headers: {
+            "Authorization": ds_user + ':' + ds_key
+        },
+        success: function (data, status, jqXHR) {
+            log('DEBUG: compile success - ' + JSON.stringify(jqXHR.responseJSON));
+            log('DEBUG: Staring preview...');
+        },
+        error: function (jqXHR, status) {
+            log('ERROR: compile failed: ' + JSON.stringify(jqXHR.responseJSON));
+        }
+    });
+
+    */
+}
 
 /*
  * log
