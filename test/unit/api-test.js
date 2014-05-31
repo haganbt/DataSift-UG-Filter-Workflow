@@ -15,6 +15,7 @@ var key = config.datasift.ds_api_key;
 
 describe('#REST API', function() {
 
+    var previewId = '';
     var app = require('../../app');
 
     before(function(){
@@ -51,6 +52,7 @@ describe('#REST API', function() {
             .set('Authorization', un+':'+key)
             .set('Content-Type', 'application/x-www-form-urlencoded')
             .end(function(err, res){
+                previewId = res.body.id;
                 expect(res).to.exist;
                 should.not.exist(err);
                 res.should.have.status(202);
@@ -58,8 +60,23 @@ describe('#REST API', function() {
                 res.text.should.include('created_at');
                 done();
             });
-         });
+    });
 
+
+    it('- /API/PREVIEW resource', function(done) {
+
+        request.get('localhost:3000/api/preview/'+previewId )
+            .type('form')
+            .set('Authorization', un+':'+key)
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .end(function(err, res){
+                expect(res).to.exist;
+                should.not.exist(err);
+                res.should.have.status(202);
+                res.text.should.include('progress');
+                done();
+            });
+    });
 
     after(function() {
         server.close();
