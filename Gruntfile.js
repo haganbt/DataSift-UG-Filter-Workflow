@@ -11,8 +11,8 @@ module.exports = function(grunt) {
                 destPrefix: 'public/'
             },
             files: {
-            'js/progress.min.js': 'progress.js/minified/progress.min.js',
-            'css/progress.min.css': 'progress.js/minified/progressjs.min.css',
+            'js/nprogress.js': 'nprogress/nprogress.js',
+            'css/nprogress.css': 'nprogress/nprogress.css',
             'js/jquery.cookie.js': 'jquery.cookie/jquery.cookie.js',
             'js/jquery.min.js': 'jquery/dist/jquery.min.js',
             'js/jquery.min.map': 'jquery/dist/jquery.min.map',
