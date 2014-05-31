@@ -45,10 +45,25 @@ router.post('/create', function(req, res) {
 });
 
 
-router.get('/test', function(req, res) {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.write(JSON.stringify({insecticons : ["Shrapnel","Bombshell", "Kickback"]}));
-    res.end();
+/*
+ * GET preview - get historic preview
+ *
+ */
+router.get('/preview/:previewId', function(req, res) {
+
+    var previewId = req.params.previewId || '';
+    var auth = req.header('Authorization') || '';
+
+    ds.preview(previewId, auth, function callback(err, response, body) {
+        if(err){
+            res.status(err.status || 500);
+            res.render('500', { error: err });
+        }
+        // Pass through the statusCode and Content-Type from the DS response object.
+        res.writeHead(response.statusCode, { 'Content-Type': response.headers['content-type'] });
+        res.write(body);
+        res.end();
+    });
 });
 
 

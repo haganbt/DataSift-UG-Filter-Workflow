@@ -14,6 +14,8 @@ var key = config.datasift.ds_api_key;
 
 describe('#DataSift Lib', function() {
 
+    var previewId = '';
+
     var app = require('../../app');
     before(function(){
         server = app.listen(3000);
@@ -43,9 +45,29 @@ describe('#DataSift Lib', function() {
             if (err) {
                 throw err;
             }
+
+            var jbody = JSON.parse(body);
+            previewId = jbody.id;
+
             response.should.have.status(202);
             body.should.include('id');
             body.should.include('created_at');
+            done();
+        });
+    });
+
+
+    it('- testing the preview method', function(done) {
+
+        ds.preview(previewId, un+':'+key, function (err, response, body) {
+            if (err) {
+                throw err;
+            }
+            response.should.have.status(202);
+            body.should.include('id');
+            body.should.include('created_at');
+            body.should.include('name');
+            body.should.include('progress');
             done();
         });
     });

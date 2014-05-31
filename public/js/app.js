@@ -1,7 +1,7 @@
 var ds_user = '';
 var ds_key = '';
 
-
+//init
 $(function() {
 
     // cookies
@@ -10,7 +10,6 @@ $(function() {
         $('#key').val($.cookie('key')) === $.cookie('key');
     }
 
-    //init JCSDL
     $('#jcsdl-edit').jcsdlGui({
         save : function(code) {
             log('DEBUG: CSDL generated: ' + code);
@@ -44,9 +43,25 @@ function validateCreds(){
     // set cookie
     $.cookie('un', ds_user, { expires: 60 });
     $.cookie('key', ds_key, { expires: 60 });
-    console.log('DEBUG: saved cookies: ' + ds_user + '' + ds_key);
     return true;
 };
+
+
+/*
+ * initPreview - build params and calls
+ * historic preview
+ *
+ */
+function initPreview (hash){
+    var params  = {};
+    params.start = Math.floor((Date.now() / 1000) - (60 * 60 * 3)); // start is 3 hours ago
+    params.end = Math.floor((Date.now() / 1000) - (60 * 60 * 2)); // end is 2 hours ago
+    params.hash = hash;
+    params.sources = 'twitter';
+    params.parameters = 'language.tag,freqDist,10';
+
+    doCreate(serialize(params));
+}
 
 
 /*
@@ -71,11 +86,14 @@ function doCompile (csdl) {
         success: function (data, status, jqXHR) {
             log('DEBUG: Compile success - ' + JSON.stringify(jqXHR.responseJSON));
             if(jqXHR.responseJSON.hash && jqXHR.responseJSON.hash !== undefined){
-                doCreate(jqXHR.responseJSON.hash);
+                // start historic preview
+                initPreview(jqXHR.responseJSON.hash);
+            } else {
+                log('ERROR: Compile failed - no hash received: ' + JSON.stringify(jqXHR.responseJSON));
             }
         },
         error: function (jqXHR, status) {
-            log('ERROR: compile failed: ' + JSON.stringify(jqXHR.responseJSON));
+            log('ERROR: Compile failed: ' + JSON.stringify(jqXHR.responseJSON));
         }
     });
 }
@@ -87,30 +105,27 @@ function doCompile (csdl) {
  * @return void
  *
  */
-function doCreate (hash) {
+function doCreate (params) {
 
     log('DEBUG: Staring preview...');
 
-    /*
     jQuery.ajax({
         type: "POST",
-        url: "http://localhost:3000/api/compile",
+        url: "http://localhost:3000/api/create",
         contentType: "application/json; charset=utf-8",
-        data: 'csdl='+encodeURIComponent(csdl),
+        data: params,
         dataType: "json",
         headers: {
             "Authorization": ds_user + ':' + ds_key
         },
         success: function (data, status, jqXHR) {
-            log('DEBUG: compile success - ' + JSON.stringify(jqXHR.responseJSON));
-            log('DEBUG: Staring preview...');
+            log('DEBUG: Historic preview create success: ' + JSON.stringify(jqXHR.responseJSON));
+            getPreview(jqXHR.responseJSON.id);
         },
         error: function (jqXHR, status) {
-            log('ERROR: compile failed: ' + JSON.stringify(jqXHR.responseJSON));
+            log('ERROR: historic preview create failed: ' + JSON.stringify(jqXHR.responseJSON));
         }
     });
-
-    */
 }
 
 /*
@@ -125,20 +140,48 @@ function log(update){
 
 
 /*
-function getContacts () {
-
-    jQuery.ajax({
-        type: "GET",
-        url: "http://localhost:49193/Contacts.svc/GetAll",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data, status, jqXHR) {
-            // do something
-        },
-
-        error: function (jqXHR, status) {
-            // error handler
+ * serialize - obj to URI encoded string
+ *
+ * @param - obj - {foo: "hi there", bar: "100%" }
+ * @return - string - foo=hi%20there&bar=100%25
+ */
+function serialize(obj) {
+    var str = [];
+    for(var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         }
-    });
+    }
+    return str.join("&");
 }
-*/
+
+
+/*
+ * getPreview - poll historic preview
+ * until a 200 is received.
+ *
+ */
+function getPreview (id) {
+    var intervalID = setInterval(function() {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:3000/api/preview/"+id,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+                "Authorization": ds_user + ':' + ds_key
+            },
+            success: function (data, status, jqXHR) {
+                log('DEBUG: Preview status: ' + JSON.stringify(jqXHR.responseJSON.progress));
+
+                if(jqXHR.status === 200) {
+                    log('DEBUG: Preview complete: '+ JSON.stringify(jqXHR.responseJSON));
+                    clearInterval(intervalID);
+                }
+            },
+            error: function (jqXHR, status) {
+                log('ERROR: historic preview create failed.');
+            }
+        });
+    }, 5000);
+}
