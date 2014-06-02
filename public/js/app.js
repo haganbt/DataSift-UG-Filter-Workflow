@@ -82,7 +82,7 @@ function doCompile (csdl) {
 
     jQuery.ajax({
         type: "POST",
-        url: "http://localhost:3000/api/compile",
+        url: "http://dsfilter.herokuapp.com/api/compile",
         contentType: "application/json; charset=utf-8",
         data: 'csdl='+encodeURIComponent(csdl),
         dataType: "json",
@@ -117,7 +117,7 @@ function doCreate (params) {
 
     jQuery.ajax({
         type: "POST",
-        url: "http://localhost:3000/api/create",
+        url: "http://dsfilter.herokuapp.com/api/create",
         contentType: "application/json; charset=utf-8",
         data: params,
         dataType: "json",
@@ -175,7 +175,7 @@ function getPreview (id) {
     var intervalID = setInterval(function() {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:3000/api/preview/"+id,
+            url: "http://dsfilter.herokuapp.com/api/preview/"+id,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             headers: {
