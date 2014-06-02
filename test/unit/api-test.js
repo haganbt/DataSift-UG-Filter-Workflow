@@ -48,7 +48,7 @@ describe('#REST API', function() {
 
     });
 
-/*
+
     it('- /API/COMPILE resource', function(done) {
         request.post('localhost:3000/api/compile' )
             .type('form')
@@ -63,8 +63,8 @@ describe('#REST API', function() {
                 done();
             });
     });
-*/
 
+/*
     it('- /API/PREVIEW resource', function(done) {
         console.log('-------------------');
         request.get('localhost:3000/api/preview/'+previewId )
@@ -79,7 +79,7 @@ describe('#REST API', function() {
                 done();
             });
     });
-
+*/
     after(function() {
         server.close();
     });
