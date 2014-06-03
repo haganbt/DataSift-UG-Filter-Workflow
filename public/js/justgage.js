@@ -637,7 +637,8 @@
     "font-weight":"normal",
     "font-family":"Arial",
     "fill":obj.config.labelFontColor,
-    "fill-opacity": (obj.config.hideMinMax || obj.config.donut)? "0" : "1"
+    //"fill-opacity": (obj.config.hideMinMax || obj.config.donut)? "0" : "1"
+    "fill-opacity": 0 // hack to hide vals as hideMinMax now deprecated
   });
   setDy(obj.txtMin, obj.params.minFontSize, obj.params.minY);
 
@@ -654,7 +655,8 @@
     "font-weight":"normal",
     "font-family":"Arial",
     "fill":obj.config.labelFontColor,
-    "fill-opacity": (obj.config.hideMinMax || obj.config.donut)? "0" : "1"
+    //"fill-opacity": (obj.config.hideMinMax || obj.config.donut)? "0" : "1"
+    "fill-opacity": 0// hack to hide vals as hideMinMax now deprecated
   });
   setDy(obj.txtMax, obj.params.maxFontSize, obj.params.maxY);
 
