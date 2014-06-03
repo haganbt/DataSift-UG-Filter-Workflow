@@ -1,2 +1,2 @@
 # Ignore Config files
-config.*.js
+*.js
