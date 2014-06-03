@@ -4,7 +4,6 @@ var ds_key = '';
 //init
 $(function() {
 
-
     $('#gage').hide();
 
     NProgress.configure({
@@ -223,4 +222,6 @@ function calcStats(obj){
         label: "",
         levelColorsGradient: true
     });
+
+    $('#gage').show();
 }
