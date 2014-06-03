@@ -64,23 +64,29 @@ describe('#REST API', function() {
             });
     });
 
-/*
-    it('- /API/PREVIEW resource', function(done) {
-        console.log('-------------------');
-        request.get('localhost:3000/api/preview/'+previewId )
-            .type('form')
-            .set('Authorization', un+':'+key)
-            .set('Content-Type', 'application/x-www-form-urlencoded')
-            .end(function(err, res){
-                expect(res).to.exist;
-                should.not.exist(err);
-                res.should.have.status(202);
-                res.text.should.include('progress');
-                done();
-            });
-    });
-*/
+
+
+
     after(function() {
+
+
+        it('- /API/PREVIEW resource', function(done) {
+            console.log('-------------------');
+            request.get('localhost:3000/api/preview/'+previewId )
+                .type('form')
+                .set('Authorization', un+':'+key)
+                .set('Content-Type', 'application/x-www-form-urlencoded')
+                .end(function(err, res){
+                    expect(res).to.exist;
+                    should.not.exist(err);
+                    res.should.have.status(202);
+                    res.text.should.include('progress');
+                    done();
+                });
+        });
+
+
+
         server.close();
     });
 
