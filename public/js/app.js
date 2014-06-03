@@ -209,5 +209,5 @@ function getPreview (id) {
 function calcStats(obj){
     var hour = JSON.parse(obj.data[0].summary.count);
     var minute = ((hour / 60) * 100).toFixed(0);
-    $('#intro').text('Estimated volume: ' + minute + ' per minute.');
+    $('#intro').text('Estimated volume: ~' + minute + ' per minute, ' + hour + ' per hour.');
 }
