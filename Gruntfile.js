@@ -12,6 +12,7 @@ module.exports = function(grunt) {
             },
             files: {
             'js/nprogress.js': 'nprogress/nprogress.js',
+            'js/raphael-min.js': 'raphael/raphael-min.js',
             //'css/nprogress.css': 'nprogress/nprogress.css', <-- custom so dont copy over
             'js/jquery.cookie.js': 'jquery.cookie/jquery.cookie.js',
             'js/jquery.min.js': 'jquery/dist/jquery.min.js',
