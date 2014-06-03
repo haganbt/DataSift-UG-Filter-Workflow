@@ -64,14 +64,9 @@ describe('#REST API', function() {
             });
     });
 
-
-
-
     after(function() {
 
-
         it('- /API/PREVIEW resource', function(done) {
-            console.log('-------------------');
             request.get('localhost:3000/api/preview/'+previewId )
                 .type('form')
                 .set('Authorization', un+':'+key)
@@ -84,8 +79,6 @@ describe('#REST API', function() {
                     done();
                 });
         });
-
-
 
         server.close();
     });
