@@ -1,7 +1,7 @@
 var ds_user = '';
 var ds_key = '';
-//var apiUrl = 'http://dsfilter.herokuapp.com';
-var apiUrl = 'http://localhost:3000';
+var apiUrl = 'http://dsfilter.herokuapp.com';
+//var apiUrl = 'http://localhost:3000';
 
 //init
 $(function() {
