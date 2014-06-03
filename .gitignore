@@ -1,6 +1,5 @@
-#DS test config file
-test/config.js
-
+# Config files
+config/*.js
 
 # Logs
 logs
