@@ -217,8 +217,8 @@ function calcStats(obj){
         hour =0;
         $('#intro').text('Estimated volume: Very low (< 100 per hour)');
     } else {
-        hour = JSON.parse(obj.data[0].summary.count);
-        minute = ((hour / 60) * 100).toFixed(0);
+        hour = JSON.parse(obj.data[0].summary.count) * 100; //1% returned
+        minute = (hour / 60).toFixed(0);
         $('#intro').text('Estimated volume: Approximately ' + minute + ' per minute, ' + hour + ' per hour.');
     }
 
