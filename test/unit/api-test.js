@@ -6,7 +6,7 @@ var expect = require("chai").expect;
 var should = require('should');
 var util = require('../../lib/util');
 var server;
-var config = require('../../test/config');
+var config = require('../../config');
 
 
 var un = config.datasift.ds_username;

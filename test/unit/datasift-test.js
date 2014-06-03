@@ -6,7 +6,7 @@ var ds = require('../../lib/datasift');
 var util = require('../../lib/util');
 var expect = require("chai").expect;
 var should = require('should');
-var config = require('../../test/config');
+var config = require('../../config');
 
 var un = config.datasift.ds_username;
 var key = config.datasift.ds_api_key;
