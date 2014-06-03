@@ -1,9 +1,10 @@
 var ds_user = '';
 var ds_key = '';
+//var apiUrl = 'http://dsfilter.herokuapp.com';
+var apiUrl = 'http://localhost:3000';
 
 //init
 $(function() {
-
     $('#gage').hide();
 
     NProgress.configure({
@@ -84,7 +85,7 @@ function doCompile (csdl) {
 
     jQuery.ajax({
         type: "POST",
-        url: "http://dsfilter.herokuapp.com/api/compile",
+        url: apiUrl + "/api/compile",
         contentType: "application/json; charset=utf-8",
         data: 'csdl='+encodeURIComponent(csdl),
         dataType: "json",
@@ -119,7 +120,7 @@ function doCreate (params) {
 
     jQuery.ajax({
         type: "POST",
-        url: "http://dsfilter.herokuapp.com/api/create",
+        url: apiUrl + "/api/create",
         contentType: "application/json; charset=utf-8",
         data: params,
         dataType: "json",
@@ -177,7 +178,7 @@ function getPreview (id) {
     var intervalID = setInterval(function() {
         jQuery.ajax({
             type: "GET",
-            url: "http://dsfilter.herokuapp.com/api/preview/"+id,
+            url: apiUrl + "/api/preview/"+id,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             headers: {
@@ -209,11 +210,21 @@ function getPreview (id) {
  *
  */
 function calcStats(obj){
-    var hour = JSON.parse(obj.data[0].summary.count);
-    var minute = ((hour / 60) * 100).toFixed(0);
-    $('#intro').text('Estimated volume: ~' + minute + ' per minute, ' + hour + ' per hour.');
 
+    var hour=0, minute=0;
+
+    if(obj.data === undefined){ // volume too low
+        hour =0;
+        $('#intro').text('Estimated volume: Very low (< 100 per hour)');
+    } else {
+        hour = JSON.parse(obj.data[0].summary.count);
+        minute = ((hour / 60) * 100).toFixed(0);
+        $('#intro').text('Estimated volume: Approximately ' + minute + ' per minute, ' + hour + ' per hour.');
+    }
+
+    //render gage
     var g5 = new JustGage({
+        showMinMax: false,
         id: "gage",
         value: hour,
         min: 0,
